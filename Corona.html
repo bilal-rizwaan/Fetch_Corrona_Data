@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch API Data</title>
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container text-center">
+    <h1 class="text-center">Fetch API Data</h1>
+    <button class="btn btn-primary" id="btn">Get Data</button>
+    <div class="text-center" id="result"></div>
+    
+    </div>
+
+    <script>
+        var data = document.getElementById('btn');
+        btn.addEventListener('click',()=>{
+            var url = 'https://corona.lmao.ninja/v3/covid-19/countries';
+            fetch(url).then((response)=>{
+                return (response.json());
+            }).then((data)=>{
+                var result=document.getElementById('result');
+                var template=`<h2 class="mt-4">Covid Cases</h2>`;
+                data.forEach((record)=>{
+                    template+=`
+                    <ul class="mb-4 list-group">
+                        <li class="list-group-item">Country: ${record.country}</li>
+                        <li class="list-group-item">Cases: ${record.cases}</li>
+                        <li class="list-group-item">Death: ${record.deaths}</li>
+                        <li class="list-group-item">TodayDeaths: ${record.todayDeaths}</li>
+                        <li class="list-group-item">Recovered: ${record.recovered}</li>
+                        <li class="list-group-item">Critical: ${record.critical}</li>
+                        <li class="list-group-item">Active: ${record.active}</li>
+                        <li class="list-group-item">Tests: ${record.tests}</li>
+                    </ul> 
+                    `;
+                })
+                result.innerHTML=template;
+            })
+
+        })
+
+
+    </script>
+</div>
+</body>
+</html>
